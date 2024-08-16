@@ -16,6 +16,7 @@ Criar o backend ToDo LIST (Lista de tarefas), usando o FastAPI
 
 import uvicorn
 from fastapi import FastAPI
+from project_todo_list.routers import todo_list_router
 
 app = FastAPI()
 
@@ -23,7 +24,7 @@ app = FastAPI()
 def read_root() -> str:
     return "My ToDo List"
 
-app.include_router()
+app.include_router(todo_list_router.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
