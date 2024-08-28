@@ -21,8 +21,8 @@ class TodoListResponse(BaseModel):
     )
 
 class TodoListTipoEnum(str, Enum):
-    PUBLIC = 'PUBLIC'
-    PRIVATE = 'PRIVATE'
+    PUBLIC = 'PUBLIC' # ToDo - Implementar a criação de tarefas publicas
+    PRIVATE = 'PRIVATE' # ToDo - Implementar a criação de tarefas privadas  
 
 class TodoListRequest(BaseModel):
     name: str = None
