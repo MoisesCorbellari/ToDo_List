@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from shared.database import Base
 from datetime import datetime
 class ToDoList(Base):
-    __tablename__ = "todo_list"
+    __tablename__ = "ToDo_List"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     description = Column(String, nullable=False)
