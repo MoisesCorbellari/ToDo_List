@@ -21,7 +21,7 @@ from project_todo_list.routers import todo_list_router
 app = FastAPI()
 
 @app.get("/")
-def read_root() -> str:
+def ToDoList() -> str:
     return "My ToDo List"
 
 app.include_router(todo_list_router.router)
