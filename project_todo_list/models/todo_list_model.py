@@ -1,13 +1,14 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String, Boolean
 from shared.database import Base
-class ToDoList(Base):
+import datetime
+class task(Base):
     __tablename__ = "ToDo_List"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String, index=True) # task title
-    description = Column(String, index=True) # task description
-    created_at = Column(String) # date of task created
-    updated_at = Column(String) # date of task updated
-    deleted_at = Column(String) # date of task deleted
-    status = Column(String) # task status (True ou False)
-    type = Column(String) # task private or public (PUBLIC ou PRIVATE)
+    title = Column(String, nullable=False) # task title
+    description = Column(String) # task description
+    created = Column(DateTime, nullable=False, default=datetime.date) # date of task created
+    completed = Column(Boolean, nullable=False, default=True) # date of task completed
+    
+    def __repr__(self):
+        return f"<Task(id={self.id}, title={self.title}, created_at={self.created_at}, completed={self.completed})>" # representação do objeto como string
