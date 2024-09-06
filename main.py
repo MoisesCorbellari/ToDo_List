@@ -21,10 +21,15 @@ from project_todo_list.routers import todo_list_router
 app = FastAPI()
 
 @app.get("/")
-def ToDoList() -> str:
+def to_do_list() -> str:
     return "My ToDo List"
 
 app.include_router(todo_list_router.router)
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=5000, log_level="info", reload=True) # Rodar o servidor, iniciando o backend, LOGAR ERROS
+    try:
+        uvicorn.run("main:app", host='0.0.0.0',port=5000, log_level="info", reload=True) # 
+    except Exception as e:
+        print(f'Erro ao iniciar o servidor: {e}')
+    # reload=True: recarrega automaticamente a cada alteração salva na aplicação.
+    # log_level="info": exibe mensagens informativas sobre o que acontece no servidor.
