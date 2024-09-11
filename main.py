@@ -27,9 +27,6 @@ def to_do_list() -> str:
 app.include_router(todo_list_router.router)
 
 if __name__ == "__main__":
-    try: # garantir que o servidor seja fechado corretamente em caso de erro ou interrupção.
-        uvicorn.run("main:app", host='0.0.0.0',port=5000, log_level="info", reload=True) # 
-    except Exception as e:
-        print(f'Erro ao iniciar o servidor: {e}')
+    uvicorn.run("main:app", host='0.0.0.0',port=8000, log_level="info", reload=True)
     # reload=True: recarrega automaticamente a cada alteração salva na aplicação.
     # log_level="info": exibe mensagens informativas sobre o que acontece no servidor.
