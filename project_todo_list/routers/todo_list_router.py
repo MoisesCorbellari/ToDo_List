@@ -23,7 +23,7 @@ class ToDoListResponse(BaseModel):
 class ToDoListRequest(BaseModel):
     title: str = Field(min_length=3, max_length=30)
     description: str = Field(min_length=3, max_length=30)
-    completed: bool = Field(default=True)
+    completed: bool = Field(default=False)
 
 # busca e retorna todas as tarefas do banco de dados no formato ToDoListResponse através de uma rota GET.
 @router.get("", response_model=List[ToDoListResponse])
