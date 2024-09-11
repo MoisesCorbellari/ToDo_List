@@ -5,8 +5,7 @@ from shared.dependencies import get_db
 from sqlalchemy.orm import Session
 from project_todo_list.models.todo_list_model import task
 from typing import List
-from fastapi.exceptions import NotFound
-
+from shared.exceptions import NotFound
 router = APIRouter(prefix='/ToDo_List')
 
 class ToDoListResponse(BaseModel):
