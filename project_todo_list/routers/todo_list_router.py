@@ -22,14 +22,16 @@ class ToDoListResponse(BaseModel):
             from_attributes=True
         )
 
-class ToDoListTipoEnum(str, Enum):
+class ToDoListTipoEnum(Enum):
     TASK = 'TASK'
 
 class ToDoListRequest(BaseModel):
     title: str = Field(min_length=3, max_length=30)
     description: str = Field(min_length=3, max_length=30)
     completed: bool = Field(default=True)
-    tipo: ToDoListTipoEnum
+    tipo: ToDoListTipoEnum = Field(default=ToDoListTipoEnum.TASK) # default value
+    class Config:
+        arbitrary_types_allowed = True
 
 # busca e retorna todas as tarefas do banco de dados no formato ToDoListResponse através de uma rota GET.
 @router.get("", response_model=List[ToDoListResponse])
