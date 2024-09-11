@@ -9,4 +9,3 @@ class task(Base):
     description = Column(String(255)) # task description
     created = Column(DateTime, nullable=False, default=date.today) # date of task created
     completed = Column(Boolean, nullable=False, default=False) # task completed or not
-    tipo = Column(String(255), nullable=False)
