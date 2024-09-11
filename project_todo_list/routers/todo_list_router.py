@@ -9,6 +9,7 @@ from shared.exceptions import NotFound
 
 router = APIRouter(prefix='/ToDo_List')
 
+# defines a Pydantic model that defines the attributes of a task.
 class ToDoListResponse(BaseModel):
     id: int
     title: str
@@ -38,6 +39,7 @@ def get_todo_list_by_id(id_task: int,
     todo_list: task = db.get(task, id_task)
     return todo_list
 
+# defines a POST route that creates a new task in the database.
 @router.post("", response_model=ToDoListResponse, status_code=201)
 def create_todo_list(task_request: ToDoListRequest,
                      db: Session = Depends(get_db)) -> ToDoListResponse:
@@ -50,6 +52,7 @@ def create_todo_list(task_request: ToDoListRequest,
     db.refresh(todo_list) # updates the object in the session
     return todo_list # returns the object
 
+# defines a PUT route that updates an existing task in the database.
 @router.put("/{id_task}", response_model=ToDoListResponse, status_code=200)
 def update_todo_list(id_task: int,
                      task_request: ToDoListRequest,
@@ -64,6 +67,7 @@ def update_todo_list(id_task: int,
     db.refresh(todo_list) # updates the object in the session
     return todo_list # returns the object
 
+# defines a DELETE route that deletes an existing task from the database.
 @router.delete("/{id_task}", status_code=204)
 def delete_todo_list(id_task: int,
                      db: Session = Depends(get_db)) -> None:
