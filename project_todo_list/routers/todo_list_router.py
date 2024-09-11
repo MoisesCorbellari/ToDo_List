@@ -1,6 +1,7 @@
 from datetime import date
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, ConfigDict, Field
+from sqlalchemy import Enum
 from shared.dependencies import get_db
 from sqlalchemy.orm import Session
 from project_todo_list.models.todo_list_model import task
@@ -21,11 +22,14 @@ class ToDoListResponse(BaseModel):
             from_attributes=True
         )
 
+class ToDoListTipoEnum(str, Enum):
+    TASK = 'TASK'
+
 class ToDoListRequest(BaseModel):
     title: str = Field(min_length=3, max_length=30)
     description: str = Field(min_length=3, max_length=30)
     completed: bool = Field(default=True)
-    tipo: str = Field(min_length=3, max_length=30)
+    tipo: ToDoListTipoEnum
 
 # busca e retorna todas as tarefas do banco de dados no formato ToDoListResponse através de uma rota GET.
 @router.get("", response_model=List[ToDoListResponse])
