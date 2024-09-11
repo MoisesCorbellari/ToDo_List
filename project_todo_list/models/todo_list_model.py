@@ -1,6 +1,8 @@
 from sqlalchemy import Column, DateTime, Integer, String, Boolean
 from shared.database import Base
 from datetime import date
+
+# task model
 class task(Base):
     __tablename__ = "ToDo_List"
 

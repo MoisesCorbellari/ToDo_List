@@ -26,12 +26,12 @@ class ToDoListRequest(BaseModel):
     description: str = Field(min_length=3, max_length=30)
     completed: bool = Field(default=False)
 
-# busca e retorna todas as tarefas do banco de dados no formato ToDoListResponse através de uma rota GET.
+# fetches and returns all tasks from the database in ToDoListResponse format via a GET route.
 @router.get("", response_model=List[ToDoListResponse])
 def get_all_todo_list(db: Session = Depends(get_db)) -> List[ToDoListResponse]:
     return db.query(task).all()
 
-# define uma rota GET que busca uma tarefa específica no banco de dados pelo seu id_task (ID da tarefa).
+# defines a GET route that searches the database for a specific task by its id_task (task ID).
 @router.get("/{id_task}", response_model=ToDoListResponse)
 def get_todo_list_by_id(id_task: int,
                         db: Session = Depends(get_db)) -> List[ToDoListResponse]:
