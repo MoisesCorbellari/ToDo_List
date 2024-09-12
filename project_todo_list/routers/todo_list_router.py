@@ -76,6 +76,7 @@ def delete_todo_list(id_task: int,
     db.delete(todo_list)
     db.commit()
 
+# defines a function that searches the database for a specific task by its id_task.
 def find_todo_list_by_id(id_task: int, db: Session) -> task:
     todo_list = db.get(task, id_task)
     if todo_list is None:
