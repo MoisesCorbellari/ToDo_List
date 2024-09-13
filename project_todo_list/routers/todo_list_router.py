@@ -9,7 +9,6 @@ from shared.exceptions import NotFound
 
 router = APIRouter(prefix='/ToDo_List')
 
-# defines a Pydantic model that defines the attributes of a task.
 class ToDoListResponse(BaseModel):
     id: int
     title: str
@@ -27,34 +26,30 @@ class ToDoListRequest(BaseModel):
     description: str = Field(min_length=3, max_length=30)
     completed: bool = Field(default=False)
 
-# fetches and returns all tasks from the database in ToDoListResponse format via a GET route.
 @router.get("", response_model=List[ToDoListResponse])
 def get_all_todo_list(db: Session = Depends(get_db)) -> List[ToDoListResponse]:
     return db.query(task).all()
 
-# defines a GET route that searches the database for a specific task by its id_task (task ID).
 @router.get("/{id_task}", response_model=ToDoListResponse)
 def get_todo_list_by_id(id_task: int,
                         db: Session = Depends(get_db)) -> List[ToDoListResponse]:
     todo_list: task = db.get(task, id_task)
     return todo_list
 
-# defines a POST route that creates a new task in the database.
 @router.post("", response_model=ToDoListResponse, status_code=201)
-def create_todo_list(task_request: ToDoListRequest,
+def create_todo_list_by_id(task_request: ToDoListRequest,
                      db: Session = Depends(get_db)) -> ToDoListResponse:
     todo_list = task(
-        **task_request.model_dump() # named parameters to pass all attributes of the object
+        **task_request.model_dump()
     )
     
-    db.add(todo_list) # adds the object to the session
-    db.commit() # saves the object in the database
-    db.refresh(todo_list) # updates the object in the session
-    return todo_list # returns the object
+    db.add(todo_list) 
+    db.commit() 
+    db.refresh(todo_list)
+    return todo_list 
 
-# defines a PUT route that updates an existing task in the database.
 @router.put("/{id_task}", response_model=ToDoListResponse, status_code=200)
-def update_todo_list(id_task: int,
+def update_todo_list_by_id(id_task: int,
                      task_request: ToDoListRequest,
                      db: Session = Depends(get_db)) -> ToDoListResponse:
     todo_list = find_todo_list_by_id(id_task, db)
@@ -62,21 +57,19 @@ def update_todo_list(id_task: int,
     todo_list.description = task_request.description
     todo_list.completed = task_request.completed
     
-    db.add(todo_list) # adds the object to the session
-    db.commit() # saves the object in the database
-    db.refresh(todo_list) # updates the object in the session
-    return todo_list # returns the object
+    db.add(todo_list)
+    db.commit() 
+    db.refresh(todo_list) 
+    return todo_list 
 
-# defines a DELETE route that deletes an existing task from the database.
 @router.delete("/{id_task}", status_code=204)
-def delete_todo_list(id_task: int,
+def delete_todo_list_by_id(id_task: int,
                      db: Session = Depends(get_db)) -> None:
     todo_list = find_todo_list_by_id(id_task, db)
 
     db.delete(todo_list)
     db.commit()
 
-# defines a function that searches the database for a specific task by its id_task.
 def find_todo_list_by_id(id_task: int, db: Session) -> task:
     todo_list = db.get(task, id_task)
     if todo_list is None:
