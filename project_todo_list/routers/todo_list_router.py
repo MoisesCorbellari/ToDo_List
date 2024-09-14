@@ -25,6 +25,7 @@ class ToDoListRequest(BaseModel):
     title: str = Field(min_length=3, max_length=30)
     description: str = Field(min_length=3, max_length=30)
     completed: bool = Field(default=False)
+    task_client_id: int | None = None
 
 @router.get("", response_model=List[ToDoListResponse])
 def get_all_todo_list(db: Session = Depends(get_db)) -> List[ToDoListResponse]:

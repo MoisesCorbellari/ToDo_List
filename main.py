@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-from project_todo_list.routers import todo_list_router
+from project_todo_list.routers import todo_list_client_router, todo_list_router
+from shared.exceptions import NotFound
+from shared.exceptions_handler import not_found_exception_handler
 
 app = FastAPI()
 
@@ -9,6 +11,8 @@ def to_do_list() -> str:
     return "My ToDo List."
 
 app.include_router(todo_list_router.router)
+app.include_router(todo_list_client_router.router)
+app.add_exception_handler(NotFound, not_found_exception_handler)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host='0.0.0.0', port=8000, reload=True, log_level="info")

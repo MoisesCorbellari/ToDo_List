@@ -1,8 +1,8 @@
-from sqlalchemy import Column, DateTime, Integer, String, Boolean
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean
 from shared.database import Base
 from datetime import date
+from sqlalchemy.orm import relationship
 
-# task model
 class task(Base):
     __tablename__ = "ToDo_List"
 
@@ -11,3 +11,6 @@ class task(Base):
     description = Column(String(255)) 
     created = Column(DateTime, nullable=False, default=date.today)
     completed = Column(Boolean, nullable=False, default=False)
+
+    task_client_id = Column(Integer, ForeignKey('ToDo_List_Client.id'), nullable=False) # parent table
+    task = relationship("ToDoListClient") # child table
