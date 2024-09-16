@@ -27,7 +27,7 @@ class ToDoListRequest(BaseModel):
     completed: bool = Field(default=False)
     task_client_id: int | None = None
 
-@router.get("", response_model=List[ToDoListResponse])
+@router.get("/", response_model=List[ToDoListResponse])
 def get_all_todo_list(db: Session = Depends(get_db)) -> List[ToDoListResponse]:
     return db.query(task).all()
 
@@ -37,7 +37,7 @@ def get_todo_list_by_id(id_task: int,
     todo_list: task = db.get(task, id_task)
     return todo_list
 
-@router.post("", response_model=ToDoListResponse, status_code=201)
+@router.post("/", response_model=ToDoListResponse, status_code=201)
 def create_todo_list_by_id(task_request: ToDoListRequest,
                      db: Session = Depends(get_db)) -> ToDoListResponse:
     todo_list = task(
