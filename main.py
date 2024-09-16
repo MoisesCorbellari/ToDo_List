@@ -6,7 +6,7 @@ from shared.exceptions_handler import not_found_exception_handler
 
 app = FastAPI()
 
-@app.get("/")
+@app.get("")
 def to_do_list() -> str:
     return "My ToDo List."
 
