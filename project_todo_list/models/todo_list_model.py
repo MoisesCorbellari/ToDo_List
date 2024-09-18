@@ -13,4 +13,4 @@ class task(Base):
     completed = Column(Boolean, nullable=False, default=False)
 
     task_client_id = Column(Integer, ForeignKey('ToDo_List_Client.id'), nullable=False) # parent table
-    task = relationship("ToDoListClient") # child table
+    todo = relationship("ToDoListClient") # child table
