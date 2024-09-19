@@ -12,5 +12,5 @@ class task(Base):
     created = Column(DateTime, nullable=False, default=date.today)
     completed = Column(Boolean, nullable=False, default=False)
 
-    task_client_id = Column(Integer, ForeignKey('ToDo_List_Client.id'), nullable=False) # parent table
+    id_task_client = Column(Integer, ForeignKey('ToDo_List_Client.id'), nullable=False) # parent table
     todo = relationship("ToDoListClient") # child table

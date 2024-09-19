@@ -6,7 +6,7 @@ from project_todo_list.models.todo_list_client_model import ToDoListClient
 from shared.dependencies import get_db
 from shared.exceptions import NotFound
 
-router = APIRouter(prefix='/ToDo_List_Client')
+router = APIRouter(prefix='/ToDo_Client')
 
 class ToDoListClientResponse(BaseModel):
     id: int
