@@ -5,5 +5,5 @@ class ToDoListClient(Base):
     __tablename__ = "ToDo_Client"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(255))
+    name = Column(String(255))
     
