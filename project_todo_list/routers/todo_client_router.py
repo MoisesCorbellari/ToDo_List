@@ -24,12 +24,12 @@ def get_all_todo_client(db: Session = Depends(get_db)) -> List[ToDoListClientRes
     return db.query(ToDoListClient).all()
 
 @router.get("/{id_task_client}", response_model=ToDoListClientResponse)
-def get_all_todo_client_by_id(id_task_client: int,
+def get_todo_client_by_id(id_task_client: int,
                                    db: Session = Depends(get_db)) -> List[ToDoListClientResponse]:
     return find_todo_client_by_id(id_task_client, db)
 
 @router.post("/",response_model=ToDoListClientResponse, status_code=201)
-def create_todo_client_by_id(task_client_request: ToDoListClientRequest,
+def create_todo_client(task_client_request: ToDoListClientRequest,
                                   db: Session = Depends(get_db)) -> ToDoListClientResponse:
     todo_list_client = ToDoListClient(
         **task_client_request.model_dump()
