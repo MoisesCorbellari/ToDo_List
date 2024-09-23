@@ -1,6 +1,7 @@
 from datetime import date
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, ConfigDict, Field
+from project_todo_list.routers.todo_client_router import ToDoListClientResponse
 from shared.dependencies import get_db
 from sqlalchemy.orm import Session
 from project_todo_list.models.todo_list_model import Task
@@ -15,6 +16,7 @@ class ToDoListResponse(BaseModel):
     description: str
     created: date
     completed: bool
+    todo: ToDoListClientResponse # import ToDoListClientResponse
 
     class Config:
         model_config = ConfigDict(
@@ -50,7 +52,7 @@ def create_todo_list(task_request: ToDoListRequest,
     return todo_list 
 
 @router.put("/{id_task}", response_model=ToDoListResponse, status_code=200)
-def update_todo_list(id_task: int,
+def update_todo_list_by_id(id_task: int,
                      task_request: ToDoListRequest,
                      db: Session = Depends(get_db)) -> ToDoListResponse:
     todo_list = find_todo_list_by_id(id_task, db)
@@ -64,7 +66,7 @@ def update_todo_list(id_task: int,
     return todo_list 
 
 @router.delete("/{id_task}", status_code=204)
-def delete_todo_list(id_task: int,
+def delete_todo_list_by_id(id_task: int,
                      db: Session = Depends(get_db)) -> None:
     todo_list = find_todo_list_by_id(id_task, db)
 

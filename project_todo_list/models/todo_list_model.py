@@ -3,7 +3,6 @@ from shared.database import Base
 from datetime import date
 from sqlalchemy.orm import relationship
 
-# task model
 class Task(Base):
     __tablename__ = "ToDo_List"
 
