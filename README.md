@@ -1,6 +1,6 @@
 ## ToDo_List
 
-I'm developing this project as a way to apply my knowledge.
+Details about the project will be added soon. I am currently developing this project as a way to apply my knowledge.
 
 ### Introduction
 
