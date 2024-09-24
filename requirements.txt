@@ -9,4 +9,4 @@ pydantic==2.9.2
 pytest==8.3.3
 
 # TOOLS
-alembic==1.13.2
+alembic==1.13.3
