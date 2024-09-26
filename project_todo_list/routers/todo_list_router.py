@@ -1,7 +1,6 @@
 from datetime import date
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
-from project_todo_list.routers.todo_client_router import ToDoListClientResponse
 from shared.dependencies import get_db
 from sqlalchemy.orm import Session
 from project_todo_list.models.todo_list_model import Task
@@ -16,7 +15,6 @@ class ToDoListResponse(BaseModel):
     description: str
     created: date
     completed: bool
-    todo: ToDoListClientResponse # import ToDoListClientResponse
 
     class Config:
         model_config = ConfigDict(
@@ -27,7 +25,6 @@ class ToDoListRequest(BaseModel):
     title: str = Field(min_length=3, max_length=30)
     description: str = Field(min_length=3, max_length=255)
     completed: bool = Field(default=False)
-    task_client_id: int | None = None
 
 @router.get("", response_model=List[ToDoListResponse])
 def get_all_todo_list(db: Session = Depends(get_db)) -> List[ToDoListResponse]:
@@ -64,6 +61,21 @@ def update_todo_list_by_id(id_task: int,
     db.commit() 
     db.refresh(todo_list) 
     return todo_list 
+
+@router.post("/{id_task}/finished", response_model=ToDoListResponse, status_code=200)
+def completed_todo_list_by_id(id_task: int,
+                     db: Session = Depends(get_db)) -> ToDoListResponse:
+    todo_list = find_todo_list_by_id(id_task, db)
+
+    if todo_list.completed:
+        raise HTTPException(status_code=400, detail="Task is already completed")
+    
+    todo_list.completed = True
+
+    db.add(todo_list) 
+    db.commit() 
+    db.refresh(todo_list) 
+    return todo_list
 
 @router.delete("/{id_task}", status_code=204)
 def delete_todo_list_by_id(id_task: int,

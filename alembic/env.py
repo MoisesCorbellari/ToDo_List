@@ -19,8 +19,6 @@ if config.config_file_name is not None:
 
 from project_todo_list.models.todo_list_model import Task # type: ignore
 
-from project_todo_list.models.todo_client_model import ToDoListClient # type: ignore
-
 from shared.database import Base
 
 target_metadata = Base.metadata

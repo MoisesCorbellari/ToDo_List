@@ -1,8 +1,8 @@
 """Create Table ToDoList
 
-Revision ID: 54ae388dff11
+Revision ID: ed999443eb33
 Revises: 
-Create Date: 2024-09-20 01:39:05.449972
+Create Date: 2024-09-26 03:58:36.749487
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '54ae388dff11'
+revision: str = 'ed999443eb33'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
