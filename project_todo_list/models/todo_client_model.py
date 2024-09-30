@@ -6,6 +6,3 @@ class ToDoListClient(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255))
-    
-    class Config:
-        orm_mode = True
